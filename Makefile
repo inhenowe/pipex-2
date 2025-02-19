@@ -6,7 +6,7 @@
 #    By: aleortiz <aleortiz@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/17 13:05:22 by aleortiz          #+#    #+#              #
-#    Updated: 2025/02/17 19:04:11 by aleortiz         ###   ########.fr        #
+#    Updated: 2025/02/19 16:42:08 by aleortiz         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,8 @@ RMDIR = ./obj
 
 # Archivos fuente y crear objetos   ====================#
 FILES = ./src/ft_mainpipex.c\
-		./src/ft_utilspipex.c
+		./src/ft_utilspipex.c\
+		./src/ft_pipexsplit.c
 MYPROG = $(SOURCEPATH)/pipex.c
 OBJ = $(addprefix $(RMDIR)/, $(notdir $(FILES:.c=.o)))
 #=======================================================#
@@ -68,7 +69,6 @@ $(RMDIR):
 	@mkdir -p $(RMDIR)
 
 $(RMDIR)/%.o : $(SOURCEPATH)/%.c | $(RMDIR)
-	
 	@$(CC) $(CFLAGS) -c $< -o $@
 
 $(LIBPIPEX) : PRINTLIB $(OBJ)
@@ -89,9 +89,9 @@ else
 	@$(CC) $(CFLAGS) $(INCFLAGS) $(MYPROG) $(LIBPIPEX) -o pipex
 endif
 ifeq ($(val),1)
-	$(VALFLAGS) ./pipex Makefile cat "wc -l" salida.txt
+	$(VALFLAGS) ./pipex Makefile cat cat salida.txt
 else
-	@ ./pipex Makefile cat "grep echo" salida.txt
+	@ ./pipex Makefile cat cat salida.txt
 endif
 	@echo "$(MAGENTA)PIPEX DONE \(^3^)/$(RESET)"
 

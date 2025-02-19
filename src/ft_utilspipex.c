@@ -6,7 +6,7 @@
 /*   By: aleortiz <aleortiz@student.42malaga.com    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/02/06 19:44:50 by aleortiz          #+#    #+#             */
-/*   Updated: 2025/02/17 18:31:41 by aleortiz         ###   ########.fr       */
+/*   Updated: 2025/02/19 14:00:49 by aleortiz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	offspring_read(char **data, char **envp, char *path, int fd1[2])
 	close(fd2);
 	dup2(fd1[WRITE_SIDE], STDOUT_FILENO);
 	close(fd1[WRITE_SIDE]);
-	args = ft_split(data[2], ' ');
+	args = ft_split_pipex(data[2]);
 	execve(path, args, envp);
 	perror("exceve1");
 	exit(1);
@@ -95,7 +95,7 @@ void	offspring_write(char **data, char **envp, char *path, int fd1[2])
 	close(fd1[READ_SIDE]);
 	dup2(fd2, STDOUT_FILENO);
 	close(fd2);
-	args = ft_split(data[3], ' ');
+	args = ft_split_pipex(data[3]);
 	execve(path, args, envp);
 	perror("execve2");
 	exit(1);

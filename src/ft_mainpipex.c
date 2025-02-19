@@ -60,7 +60,7 @@ void	pip_menu(char **argv,char **envp)
 	procesor_id = fork();
 	if (procesor_id == 0)
 	{
-		candf = ft_split(argv[2], ' ');
+		candf = ft_split_pipex(argv[2]);
 		offspring_read(argv, envp, search_path(envp,candf[0]), fd1);
 	}
 	else
@@ -69,7 +69,7 @@ void	pip_menu(char **argv,char **envp)
 		procesor_id = fork();
 		if (procesor_id == 0)
 		{
-			candf = ft_split(argv[3], ' ');
+			candf = ft_split_pipex(argv[3]);
 			offspring_write(argv, envp, search_path(envp,candf[0]), fd1);
 		}
 		else
