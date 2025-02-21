@@ -6,7 +6,7 @@
 #    By: aleortiz <aleortiz@student.42malaga.com    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/02/17 13:05:22 by aleortiz          #+#    #+#              #
-#    Updated: 2025/02/19 16:42:08 by aleortiz         ###   ########.fr        #
+#    Updated: 2025/02/19 19:30:10 by aleortiz         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ RMDIR = ./obj
 FILES = ./src/ft_mainpipex.c\
 		./src/ft_utilspipex.c\
 		./src/ft_pipexsplit.c
-MYPROG = $(SOURCEPATH)/pipex.c
+MYPROG = pipex.c
 OBJ = $(addprefix $(RMDIR)/, $(notdir $(FILES:.c=.o)))
 #=======================================================#
 
@@ -57,9 +57,16 @@ val = 0
 #=====================#
 
 # Reglas del makefile
-all : run
+all : run	
+
 
 PRINTLIB :
+ifeq ($(sani), 0)
+	@echo "$(MAGENTA)Run mode without memory flags$(RESET)"
+endif
+ifeq ($(val), 0)
+	@echo "$(MAGENTA)Run mode without valgrind$(RESET)"
+endif
 	@echo "$(YELLOW)Compiling PRINTLIB...$(RESET)"
 	@make -s -C $(PRINT)
 	@cp $(PRINT)/libftprintf.a .
@@ -70,6 +77,7 @@ $(RMDIR):
 
 $(RMDIR)/%.o : $(SOURCEPATH)/%.c | $(RMDIR)
 	@$(CC) $(CFLAGS) -c $< -o $@
+	@echo "$(YELLOW)Compiling $< to $@$(RESET)"
 
 $(LIBPIPEX) : PRINTLIB $(OBJ)
 	@$(LIBCC) $(LIBPIPEX) $(OBJ)
@@ -93,7 +101,13 @@ ifeq ($(val),1)
 else
 	@ ./pipex Makefile cat cat salida.txt
 endif
-	@echo "$(MAGENTA)PIPEX DONE \(^3^)/$(RESET)"
+	@echo "$(GREEN)"
+	@echo " _____    ____   ___   __   _____     ____   __  ____   _____  ___    ___  "
+	@echo "|  _  \  / __ \ |   \ |  | |  ___|   |  _ \ |  ||  _ \ |  ___| \  \  /  /  "
+	@echo "| | |  || |  | ||    \|  | | |___    | |_| ||  || |_| || |___   \  \/  /   "
+	@echo "| |_|  || |__| ||  |\    | | |___    | ____/|  || ____/| |___   /  /\  \   "
+	@echo "|_____/  \____/ |__| \___| |_____|   |_|    |__||_|    |_____| /__/  \__\  "
+	@echo " $(RESET)"
 
 clean :
 	@make clean -s -C $(PRINT)
